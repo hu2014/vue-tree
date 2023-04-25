@@ -387,11 +387,11 @@ export default class TreeStore {
 
       node.expand = value
       // Set children visibility
-      const queue = [...node.children]
+      let queue = [...node.children]
       for (let i = 0; i < queue.length; i++) {
         const node = queue[i]
         if (node.expand && node.children.length) {
-          queue.push(...node.children)
+          queue = queue.concat(node.children)
         }
         if (node._filterVisible === false) {
           node.visible = false

@@ -41,6 +41,7 @@
           <button @click="handleGenerateTotal('30w')">30w 节点</button>
         </div>
         <div class="actions">
+          <button @click="handleBigTree">生成大数据</button>
           <button @click="handleSetData">设置树数据</button>
         </div>
         <div class="actions">
@@ -144,6 +145,34 @@ export default {
     handleScrollToNode () {
       this.$refs.tree.scrollTo(this.scrollKey, this.scrollValue || this.scrollVerticalOption)
     },
+    //调试
+    handleBigTree(){
+      const data = [],
+      root = 3,
+      children = 1,
+      base = 800000;
+      for (let i = 0; i < root; i++) {
+        data.push({
+          id: `${i}`,
+          title: `test-${i}`,
+          children: [],
+        });
+        for (let j = 0; j < children; j++) {
+          data[i].children.push({
+            id: `${i}-${j}`,
+            title: `test-${i}-${j}`,
+            children: [],
+          });
+          for (let k = 0; k < base; k++) {
+            data[i].children[j].children.push({
+              id: `${i}-${j}-${k}`,
+              title: `test-${i}-${j}-${k}`,
+            });
+          }
+        }
+        }
+        cache = data
+      }
   },
   created () {
     this.handleGenerate()
