@@ -10,7 +10,7 @@
       <div :class="blockAreaCls">
         <div :style="topSpaceStyles"></div>
         <CTreeNode
-          v-for="(node, index) in renderNodes"
+          v-for="node in renderNodes"
           :key="node[keyField]"
           :data="node"
           v-bind="$props"
@@ -693,7 +693,7 @@ export default (Vue as VueConstructor<Vue & {
             this.$emit('node-drop', data, e, hoverPart, this.getNode(targetKey))
           }
         } catch (err) {
-          throw new Error(err)
+          throw new Error()
         }
       }
     },
