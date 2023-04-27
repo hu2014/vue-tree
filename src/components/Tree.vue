@@ -829,7 +829,6 @@ export default (Vue as VueConstructor<Vue & {
       }),
       blockNodes: [],
     }
-
     this.nonReactive.store.on('visible-data-change', this.updateBlockNodes)
     this.nonReactive.store.on('render-data-change', this.updateRender)
     this.nonReactive.store.on('checked-change', (checkedNodes: TreeNode[], checkedKeys: TreeNodeKeyType[]) => {
@@ -860,6 +859,10 @@ export default (Vue as VueConstructor<Vue & {
     if ($iframe.contentWindow) {
       $iframe.contentWindow.removeEventListener('resize', this.updateRender)
     }
+    this.nonReactive.store.off('visible-data-change')
+    this.nonReactive.store.off('render-data-change')
+    this.nonReactive.store.off('checked-change')
+    this.nonReactive.store.off('selected-change')
   },
   watch: {
     value (newVal: VModelType) {
