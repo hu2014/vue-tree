@@ -859,10 +859,13 @@ export default (Vue as VueConstructor<Vue & {
     if ($iframe.contentWindow) {
       $iframe.contentWindow.removeEventListener('resize', this.updateRender)
     }
+    // 添加资源销毁，解决内存占用问题
     this.nonReactive.store.off('visible-data-change')
     this.nonReactive.store.off('render-data-change')
     this.nonReactive.store.off('checked-change')
     this.nonReactive.store.off('selected-change')
+    this.nonReactive.store.setData([])
+    this.nonReactive.blockNodes = []
   },
   watch: {
     value (newVal: VModelType) {

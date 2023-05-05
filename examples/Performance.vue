@@ -150,7 +150,7 @@ export default {
       const data = [],
       root = 3,
       children = 1,
-      base = 800000;
+      base = 300000;
       for (let i = 0; i < root; i++) {
         data.push({
           id: `${i}`,
@@ -176,6 +176,9 @@ export default {
   },
   created () {
     this.handleGenerate()
+  },
+  beforeDestroy() {
+    cache = null
   },
 }
 </script>
