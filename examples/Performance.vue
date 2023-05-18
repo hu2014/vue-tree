@@ -5,6 +5,7 @@
         ref="tree"
         :data="treeData"
         checkable
+        cascade
         selectable
       ></CTree>
     </div>
@@ -139,7 +140,8 @@ export default {
     handleSetData () {
       // this.treeData = cache.concat()
       /** 性能模式 */
-      this.$refs.tree.setData(cache.concat())
+      let dataArr = cache.concat()
+      this.$refs.tree.setData(Object.freeze(dataArr))
       this.isTreeSet = true
     },
     handleScrollToNode () {
@@ -149,8 +151,8 @@ export default {
     handleBigTree(){
       const data = [],
       root = 3,
-      children = 1,
-      base = 300000;
+      children = 300000,
+      base = 1;
       for (let i = 0; i < root; i++) {
         data.push({
           id: `${i}`,

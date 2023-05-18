@@ -110,10 +110,10 @@ export default (Vue as VueConstructor<Vue & {
   /** 非响应数据，不会被 Vue 监听 */
   nonReactive: {
     /** Tree Store */
-    store: TreeStore,
+    store: TreeStore | null,
 
     /** block 节点（所有可见节点） */
-    blockNodes: TreeNode[],
+    blockNodes: TreeNode[] | null,
   },
 }>).extend({
   name: 'CTree',
@@ -470,90 +470,90 @@ export default (Vue as VueConstructor<Vue & {
       } else if (this.selectable && !Array.isArray(this.value)) {
         selectableUnloadKey = this.value
       }
-      this.nonReactive.store.setData(data, selectableUnloadKey, checkableUnloadKeys as TreeNodeKeyType[])
+      this.nonReactive.store!.setData(data, selectableUnloadKey, checkableUnloadKeys as TreeNodeKeyType[])
       this.updateExpandedKeys()
     },
     setChecked (key: TreeNodeKeyType, value: boolean): void {
-      this.nonReactive.store.setChecked(key, value)
+      this.nonReactive.store!.setChecked(key, value)
     },
     setCheckedKeys (keys: TreeNodeKeyType[], value: boolean): void {
-      this.nonReactive.store.setCheckedKeys(keys, value)
+      this.nonReactive.store!.setCheckedKeys(keys, value)
     },
     checkAll (): void {
-      this.nonReactive.store.checkAll()
+      this.nonReactive.store!.checkAll()
     },
     clearChecked (): void {
-      this.nonReactive.store.clearChecked()
+      this.nonReactive.store!.clearChecked()
     },
     setSelected (key: TreeNodeKeyType, value: boolean): void {
-      this.nonReactive.store.setSelected(key, value)
+      this.nonReactive.store!.setSelected(key, value)
     },
     clearSelected (): void {
-      this.nonReactive.store.clearSelected()
+      this.nonReactive.store!.clearSelected()
     },
     setExpand (key: TreeNodeKeyType, value: boolean, expandParent: boolean = true): void {
-      this.nonReactive.store.setExpand(key, value, expandParent)
+      this.nonReactive.store!.setExpand(key, value, expandParent)
     },
     setExpandKeys (keys: TreeNodeKeyType[], value: boolean): void {
-      this.nonReactive.store.setExpandKeys(keys, value)
+      this.nonReactive.store!.setExpandKeys(keys, value)
     },
     setExpandAll (value: boolean): void {
-      this.nonReactive.store.setExpandAll(value)
+      this.nonReactive.store!.setExpandAll(value)
     },
     getCheckedNodes (ignoreMode?: IgnoreType): TreeNode[] {
       ignoreMode = ignoreMode || this.ignoreMode
-      return this.nonReactive.store.getCheckedNodes(ignoreMode)
+      return this.nonReactive.store!.getCheckedNodes(ignoreMode)
     },
     getCheckedKeys (ignoreMode?: IgnoreType): TreeNodeKeyType[] {
       ignoreMode = ignoreMode || this.ignoreMode
-      return this.nonReactive.store.getCheckedKeys(ignoreMode)
+      return this.nonReactive.store!.getCheckedKeys(ignoreMode)
     },
     getIndeterminateNodes (): TreeNode[] {
-      return this.nonReactive.store.getIndeterminateNodes()
+      return this.nonReactive.store!.getIndeterminateNodes()
     },
     getSelectedNode (): TreeNode | null {
-      return this.nonReactive.store.getSelectedNode()
+      return this.nonReactive.store!.getSelectedNode()
     },
     getSelectedKey (): TreeNodeKeyType | null {
-      return this.nonReactive.store.getSelectedKey()
+      return this.nonReactive.store!.getSelectedKey()
     },
     getExpandNodes (): TreeNode[] {
-      return this.nonReactive.store.getExpandNodes()
+      return this.nonReactive.store!.getExpandNodes()
     },
     getExpandKeys (): TreeNodeKeyType[] {
-      return this.nonReactive.store.getExpandKeys()
+      return this.nonReactive.store!.getExpandKeys()
     },
     getCurrentVisibleNodes (): TreeNode[] {
-      return this.nonReactive.store.flatData.filter((node) => node._filterVisible)
+      return this.nonReactive.store!.flatData.filter((node) => node._filterVisible)
     },
     getNode (key: TreeNodeKeyType): TreeNode | null {
-      return this.nonReactive.store.getNode(key)
+      return this.nonReactive.store!.getNode(key)
     },
     /** 返回树形结构的节点数据 */
     getTreeData (): TreeNode[] {
-      return this.nonReactive.store.data
+      return this.nonReactive.store!.data
     },
     /** 返回扁平化后的节点数据 */
     getFlatData (): TreeNode[] {
-      return this.nonReactive.store.flatData
+      return this.nonReactive.store!.flatData
     },
     getNodesCount (): number {
-      return this.nonReactive.store.flatData.length
+      return this.nonReactive.store!.flatData.length
     },
     insertBefore (insertedNode: TreeNodeKeyType | ITreeNodeOptions, referenceKey: TreeNodeKeyType): TreeNode | null {
-      return this.nonReactive.store.insertBefore(insertedNode, referenceKey)
+      return this.nonReactive.store!.insertBefore(insertedNode, referenceKey)
     },
     insertAfter (insertedNode: TreeNodeKeyType | ITreeNodeOptions, referenceKey: TreeNodeKeyType): TreeNode | null {
-      return this.nonReactive.store.insertAfter(insertedNode, referenceKey)
+      return this.nonReactive.store!.insertAfter(insertedNode, referenceKey)
     },
     append (insertedNode: TreeNodeKeyType | ITreeNodeOptions, parentKey: TreeNodeKeyType): TreeNode | null {
-      return this.nonReactive.store.append(insertedNode, parentKey)
+      return this.nonReactive.store!.append(insertedNode, parentKey)
     },
     prepend (insertedNode: TreeNodeKeyType | ITreeNodeOptions, parentKey: TreeNodeKeyType): TreeNode | null {
-      return this.nonReactive.store.prepend(insertedNode, parentKey)
+      return this.nonReactive.store!.prepend(insertedNode, parentKey)
     },
     remove (removedKey: TreeNodeKeyType): TreeNode | null {
-      return this.nonReactive.store.remove(removedKey)
+      return this.nonReactive.store!.remove(removedKey)
     },
     filter (
       keyword: string,
@@ -565,7 +565,7 @@ export default (Vue as VueConstructor<Vue & {
         return (title.toString() as string).toLowerCase().indexOf(keyword.toLowerCase()) > -1
       }
       filterMethod = filterMethod || this.filterMethod || defaultFilterMethod
-      this.nonReactive.store.filter(keyword, filterMethod)
+      this.nonReactive.store!.filter(keyword, filterMethod)
     },
     /**
      * 展示已选节点
@@ -573,10 +573,10 @@ export default (Vue as VueConstructor<Vue & {
     showCheckedNodes (showUnloadCheckedNodes?: boolean): void {
       if (!this.checkable) return
       showUnloadCheckedNodes = showUnloadCheckedNodes == null ? this.showUnloadCheckedNodes : showUnloadCheckedNodes
-      const checkedNodesCache = this.nonReactive.store.getCheckedNodes()
-      this.nonReactive.store.filter('', (keyword, node) => node.checked)
+      const checkedNodesCache = this.nonReactive.store!.getCheckedNodes()
+      this.nonReactive.store!.filter('', (keyword, node) => node.checked)
       if (!showUnloadCheckedNodes) return
-      const unloadKeys = this.nonReactive.store.getUnloadCheckedKeys()
+      const unloadKeys = this.nonReactive.store!.getUnloadCheckedKeys()
       if (unloadKeys.length) {
         const unloadNodes: TreeNode[] = unloadKeys.map((key) => {
           const queryList = this.unloadDataList.concat(checkedNodesCache)
@@ -597,7 +597,7 @@ export default (Vue as VueConstructor<Vue & {
           }, null, this.keyField, !!this.load)
         })
         this.unloadCheckedNodes = unloadNodes
-        this.nonReactive.blockNodes.push(...unloadNodes)
+        this.nonReactive.blockNodes!.push(...unloadNodes)
         this.updateBlockData()
         this.updateRender()
       }
@@ -623,11 +623,11 @@ export default (Vue as VueConstructor<Vue & {
      * @param verticalPosition 滚动的垂直位置，可选为 'top', 'center', 'bottom' 或距离容器可视顶部距离的数字，默认为 'top'
      */
     scrollTo (key: TreeNodeKeyType, verticalPosition: VerticalPositionType | number = verticalPositionEnum.top): void {
-      const node = this.nonReactive.store.mapData[key]
+      const node = this.nonReactive.store!.mapData[key]
       if (!node || !node.visible) return
       let index: number = -1
       for (let i = 0; i < this.blockLength; i++) {
-        if (this.nonReactive.blockNodes[i][this.keyField] === key) {
+        if (this.nonReactive.blockNodes![i][this.keyField] === key) {
           index = i
           break
         }
@@ -650,14 +650,14 @@ export default (Vue as VueConstructor<Vue & {
     /** 更新展开的节点 */
     updateExpandedKeys () {
       if (this.expandedKeys.length) {
-        this.nonReactive.store.setExpandAll(false, false)
-        this.nonReactive.store.setExpandKeys(this.expandedKeys, true)
+        this.nonReactive.store!.setExpandAll(false, false)
+        this.nonReactive.store!.setExpandKeys(this.expandedKeys, true)
       }
     },
 
     updateUnloadStatus (): void {
       if (this.unloadCheckedNodes.length) {
-        const unloadKeys = this.nonReactive.store.getUnloadCheckedKeys()
+        const unloadKeys = this.nonReactive.store!.getUnloadCheckedKeys()
         this.unloadCheckedNodes.forEach((node) => {
           node.checked = unloadKeys.indexOf(node[this.keyField]) > -1
         })
@@ -667,14 +667,14 @@ export default (Vue as VueConstructor<Vue & {
     //#region Handle node events
     handleNodeCheck (node: TreeNode): void {
       if (!this.cascade && this.enableLeafOnly && !node.isLeaf) return
-      this.nonReactive.store.setChecked(node[this.keyField], node.indeterminate ? false : !node.checked, true, true, true)
+      this.nonReactive.store!.setChecked(node[this.keyField], node.indeterminate ? false : !node.checked, true, true, true)
     },
     handleNodeSelect (node: TreeNode): void {
       if (this.enableLeafOnly && !node.isLeaf) return
-      this.nonReactive.store.setSelected(node[this.keyField], !node.selected)
+      this.nonReactive.store!.setSelected(node[this.keyField], !node.selected)
     },
     handleNodeExpand (node: TreeNode): void {
-      this.nonReactive.store.setExpand(node[this.keyField], !node.expand)
+      this.nonReactive.store!.setExpand(node[this.keyField], !node.expand)
     },
     handleNodeDrop (data: TreeNode, e: DragEvent, hoverPart: dragHoverPartEnum): void {
       if (!this.droppable) return
@@ -686,10 +686,10 @@ export default (Vue as VueConstructor<Vue & {
           const shouldDrop: boolean = this.beforeDropMethod(targetKey, referenceKey, hoverPart)
           if (shouldDrop) {
             if (targetKey === referenceKey) return
-            if (hoverPart === dragHoverPartEnum.before) this.nonReactive.store.insertBefore(targetKey, referenceKey)
+            if (hoverPart === dragHoverPartEnum.before) this.nonReactive.store!.insertBefore(targetKey, referenceKey)
             // 如果是拖拽到父节点，并且父节点是展开的，则不管 hoverPart 是不是 after 都拖入为子节点
-            else if (hoverPart === dragHoverPartEnum.body || (!data.isLeaf && data.expand)) this.nonReactive.store.prepend(targetKey, referenceKey)
-            else if (hoverPart === dragHoverPartEnum.after) this.nonReactive.store.insertAfter(targetKey, referenceKey)
+            else if (hoverPart === dragHoverPartEnum.body || (!data.isLeaf && data.expand)) this.nonReactive.store!.prepend(targetKey, referenceKey)
+            else if (hoverPart === dragHoverPartEnum.after) this.nonReactive.store!.insertAfter(targetKey, referenceKey)
             this.$emit('node-drop', data, e, hoverPart, this.getNode(targetKey))
           }
         } catch (err) {
@@ -737,7 +737,7 @@ export default (Vue as VueConstructor<Vue & {
       for (let event in this.$listeners) {
         if (storeEvents.indexOf(event as keyof IEventNames) > -1) {
           const e: keyof IEventNames = event as keyof IEventNames
-          this.nonReactive.store.on(e, this.$listeners[event] as ListenerType<typeof e> | Array<ListenerType<typeof e>>)
+          this.nonReactive.store!.on(e, this.$listeners[event] as ListenerType<typeof e> | Array<ListenerType<typeof e>>)
         }
       }
     },
@@ -755,7 +755,7 @@ export default (Vue as VueConstructor<Vue & {
      * 计算可见节点
      */
     updateBlockNodes (): void {
-      this.nonReactive.blockNodes = this.nonReactive.store.flatData.filter((node) => node.visible)
+      this.nonReactive.blockNodes = this.nonReactive.store!.flatData.filter((node) => node.visible)
       this.updateBlockData()
       this.updateRender()
     },
@@ -763,7 +763,7 @@ export default (Vue as VueConstructor<Vue & {
      * 更新 block 数据相关信息
      */
     updateBlockData (): void {
-      this.blockLength = this.nonReactive.blockNodes.length
+      this.blockLength = this.nonReactive.blockNodes!.length
       this.blockAreaHeight = this.nodeMinHeight * this.blockLength
     },
     /**
@@ -793,7 +793,7 @@ export default (Vue as VueConstructor<Vue & {
         this.renderStart = 0
       }
       if (isScroll && this.renderAmountCache === this.renderAmount && this.renderStartCache === this.renderStart) return
-      this.renderNodes = this.nonReactive.blockNodes.slice(this.renderStart, this.renderStart + this.renderAmount).map((blockNode) => {
+      this.renderNodes = this.nonReactive.blockNodes!.slice(this.renderStart, this.renderStart + this.renderAmount).map((blockNode) => {
         return Object.assign({}, blockNode, {
           _parent: null,
           children: [],
@@ -829,20 +829,20 @@ export default (Vue as VueConstructor<Vue & {
       }),
       blockNodes: [],
     }
-    this.nonReactive.store.on('visible-data-change', this.updateBlockNodes)
-    this.nonReactive.store.on('render-data-change', this.updateRender)
-    this.nonReactive.store.on('checked-change', (checkedNodes: TreeNode[], checkedKeys: TreeNodeKeyType[]) => {
+    this.nonReactive.store!.on('visible-data-change', this.updateBlockNodes)
+    this.nonReactive.store!.on('render-data-change', this.updateRender)
+    this.nonReactive.store!.on('checked-change', (checkedNodes: TreeNode[], checkedKeys: TreeNodeKeyType[]) => {
       this.emitCheckableInput(checkedNodes, checkedKeys)
       this.updateUnloadStatus()
     })
-    this.nonReactive.store.on('selected-change', this.emitSelectableInput)
+    this.nonReactive.store!.on('selected-change', this.emitSelectableInput)
     this.attachStoreEvents()
   },
   mounted () {
     if (this.data.length) {
       this.setData(this.data)
       if (this.defaultExpandedKeys.length) {
-        this.nonReactive.store.setExpandKeys(this.defaultExpandedKeys, true)
+        this.nonReactive.store!.setExpandKeys(this.defaultExpandedKeys, true)
       }
     } else if (typeof this.load === 'function' && this.autoLoad) {
       // Load root data from remote
@@ -860,12 +860,12 @@ export default (Vue as VueConstructor<Vue & {
       $iframe.contentWindow.removeEventListener('resize', this.updateRender)
     }
     // 添加资源销毁，解决内存占用问题
-    this.nonReactive.store.off('visible-data-change')
-    this.nonReactive.store.off('render-data-change')
-    this.nonReactive.store.off('checked-change')
-    this.nonReactive.store.off('selected-change')
-    this.nonReactive.store.setData([])
-    this.nonReactive.blockNodes = []
+    this.nonReactive.store!.off('visible-data-change')
+    this.nonReactive.store!.off('render-data-change')
+    this.nonReactive.store!.off('checked-change')
+    this.nonReactive.store!.off('selected-change')
+    this.nonReactive.store = null
+    this.nonReactive.blockNodes = null
   },
   watch: {
     value (newVal: VModelType) {
@@ -880,18 +880,18 @@ export default (Vue as VueConstructor<Vue & {
         } else if (typeof newVal === 'string') {
           checkedKeys = newVal === '' ? [] : (newVal as string).split(this.separator)
         }
-        this.nonReactive.store.clearChecked(false, false)
-        this.nonReactive.store.setCheckedKeys(checkedKeys, true)
+        this.nonReactive.store!.clearChecked(false, false)
+        this.nonReactive.store!.setCheckedKeys(checkedKeys, true)
       } else if (this.selectable) {
         // 检查是否由 input 事件触发
         if (newVal === this.valueCache) return
 
         // 单选
-        const currentSelected = this.nonReactive.store.getSelectedKey()
+        const currentSelected = this.nonReactive.store!.getSelectedKey()
         if (newVal !== '' && newVal != null) {
-          this.nonReactive.store.setSelected(newVal as TreeNodeKeyType, true)
+          this.nonReactive.store!.setSelected(newVal as TreeNodeKeyType, true)
         } else if ((newVal === '' || newVal == null) && currentSelected) {
-          this.nonReactive.store.setSelected(currentSelected, false)
+          this.nonReactive.store!.setSelected(currentSelected, false)
         }
       }
     },
