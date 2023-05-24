@@ -1,5 +1,5 @@
 {
-  "name": "vue-tree",
+  "name": "@hu2014/vue-virtual-tree",
   "version": "1.0.0",
   "main": "./dist/ctree.umd.min.js",
   "types": "./types",

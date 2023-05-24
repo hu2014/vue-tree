@@ -3,7 +3,9 @@
 [在线 demo](https://wsfe.github.io/vue-Tree/)
 
 ## 安装
-下载文档，import引入
+npm i @hu2014/vue-virtual-tree
+或者
+yarn add @hu2014/vue-virtual-tree
 ### 样式引入
 
 直接引入 css
