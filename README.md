@@ -3,19 +3,7 @@
 [在线 demo](https://wsfe.github.io/vue-Tree/)
 
 ## 安装
-
-### yarn 安装方式
-
-```bash
-yarn add @wsfe/vue-Tree
-```
-
-### npm 安装方式
-
-```bash
-npm install @wsfe/vue-Tree
-```
-
+下载文档，import引入
 ### 样式引入
 
 直接引入 css
