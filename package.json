@@ -1,9 +1,9 @@
 {
   "name": "vue-tree",
-  "version": "2.3.0",
+  "version": "1.0.0",
   "main": "./dist/ctree.umd.min.js",
   "types": "./types",
-  "description": "A vue tree component using virtual list.",
+  "description": "一款性能及其优秀的树形组件",
   "scripts": {
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build --target lib --name ctree ./src/index.ts --report",
@@ -21,17 +21,14 @@
     "types"
   ],
   "author": {
-    "name": "ChuChencheng",
-    "url": "https://github.com/ChuChencheng"
+    "name": "hu2014"
   },
   "keywords": [
     "wsfe",
-    "CTree",
     "ctree",
     "tree",
     "vue tree component"
   ],
-  "homepage": "https://github.com/wsfe/ctree",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {

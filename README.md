@@ -10,17 +10,6 @@
 、
 是多少
 
-
-```less
-@import '~@wsfe/vue-Tree/dist/vue-Tree.css';
-```
-
-引入 less 以便于变量覆盖
-
-```less
-@import '~@wsfe/vue-Tree/src/styles/index.less';
-```
-
 ## vue-Tree API
 
 ### vue-Tree Props
