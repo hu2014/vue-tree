@@ -43,8 +43,8 @@ yarn add @hu2014/vue-virtual-tree
 | load                             | 异步加载方法                                                                                                  | `(node: null \| TreeNode, resolve: Function, reject: Function) => any`                                           | 无           |
 | render                           | 节点渲染 render 函数                                                                                          | `(h: CreateElement, node: TreeNode) => VNode`                                                                    | 无           |
 | filterMethod                     | 节点过滤方法                                                                                                  | `(keyword: string, node: TreeNode) => boolean`                                                                   | 无           |
-| expandOnFilter `2.1.0`           | 过滤时是否展开所有可见节点                                                                                    | `boolean`                                                                                                        | true         |
-| unselectOnClick `2.1.0`          | 点击已选中节点是否取消选中                                                                                    | `boolean`                                                                                                        | true         |
+| expandOnFilter                   | 过滤时是否展开所有可见节点                                                                                    | `boolean`                                                                                                        | true         |
+| unselectOnClick                  | 点击已选中节点是否取消选中                                                                                    | `boolean`                                                                                                        | true         |
 | loading                          | 是否显示 loading 图标                                                                                         | `boolean`                                                                                                        | false        |
 | nodeClassName                    | 节点根元素的 class ，传入函数以对每个节点定制 class                                                           | `string \| object \| Array<string \| object> \| (node: TreeNode) => string \| object \| Array<string \| object>` | 无           |
 | nodeMinHeight                    | 根据节点最小高度计算数据总高度                                                                                | `number`                                                                                                         | 30           |
@@ -53,8 +53,6 @@ yarn add @hu2014/vue-virtual-tree
 | bufferNodeAmount                 | 当滚动到视野外的节点个数大于此值时刷新渲染节点                                                                | `number`                                                                                                         | 20           |
 
 ### vue-Tree Events
-
-注：从 `2.0.8` 起，事件中返回的节点信息都是包括 `_parent` 与 `children` 的完整节点信息（拖拽事件的 `dataTransfer` 除外）。
 
 | 事件名           | 说明                        | 返回值                                                                      |
 |:-----------------|:----------------------------|:----------------------------------------------------------------------------|
@@ -85,7 +83,7 @@ yarn add @hu2014/vue-virtual-tree
 | checkAll               | 设置所有数据全选                                | 无                                                           | `void`                            |
 | clearChecked           | 清空选中                                        | 无                                                           | `void`                            |
 | setSelected            | 设置单选选中/取消选中                           | `key: string \| number`: 节点 key<br/>`value: boolean`: 是否选中 | `void`                            |
-| setExpand              | 设置展开/折叠                                   | `key: string \| number`: 节点 key<br/>`value: boolean`: 是否展开<br/>`expandParent: boolean = true`: 如果是展开是否同时展开父节点 `2.0.6` | `void`                            |
+| setExpand              | 设置展开/折叠                                   | `key: string \| number`: 节点 key<br/>`value: boolean`: 是否展开<br/>`expandParent: boolean = true`: 如果是展开是否同时展开父节点  | `void`                            |
 | setExpandKeys          | 批量展开/折叠                                   | `keys: Array<string \| number>`: 节点 key<br/>`value: boolean`: 是否展开 | `void`                            |
 | setExpandAll           | 设置全部展开/折叠                               | `value: boolean`: 是否展开                                   | `void`                            |
 | getCheckedNodes        | 获取多选选中节点                                | `ignoreMode: 'none' \| 'parents' \| 'children'`: 需要忽略的部分，默认为 ignoreMode Prop | `TreeNode[]`                      |
@@ -153,7 +151,7 @@ yarn add @hu2014/vue-virtual-tree
 | showCheckedButton    | 是否显示已选按钮                                                                   | `boolean`                                    | true         |
 | checkedButtonText    | 已选按钮文字                                                                       | `string`                                     | '已选'       |
 | showFooter           | 是否显示底部信息                                                                   | `boolean`                                    | true         |
-| searchMethod `2.0.2` | 如果传入此 Prop ，触发 `search` 事件后将会执行此方法，否则会执行组件内置的搜索方法 | `(keyword: string) => void \| Promise<void>` | 无           |
+| searchMethod         | 如果传入此 Prop ，触发 `search` 事件后将会执行此方法，否则会执行组件内置的搜索方法 | `(keyword: string) => void \| Promise<void>` | 无           |
 | searchLength         | 触发搜索的字符长度                                                                 | `number`                                     | 1            |
 | searchDisabled       | 禁用搜索功能                                                                       | `boolean`                                    | false        |
 | searchRemote         | 是否远程搜索，传入 `searchMethod` 时无效                                           | `boolean`                                    | false        |
@@ -202,8 +200,8 @@ yarn add @hu2014/vue-virtual-tree
 | placement                  | 下拉弹出框位置，注意！！不支持自动识别方向                                       | `'bottom-start' \| 'bottom-end' \| 'bottom' \| 'top-start' \| 'top-end' \| 'top'` | 'bottom-start' |
 | transfer                   | 将下拉 DOM 转移到 body 中                                                        | `boolean`                                                                         | false          |
 | dropdownClassName          | 在下拉框容器上额外添加的 class                                                   | `string \| string[]`                                                              | 无             |
-| dropdownMinWidth `2.0.1`   | 下拉框容器最小宽度，未指定则默认为展示输入框宽度。 适合 transfer 为 false 时使用 | `number`                                                                          | 无             |
-| dropdownWidthFixed `2.0.5` | 固定下拉框容器宽度，当内容超出最小宽度不会伸长，而是出现横向滚动条               | `boolean`                                                                         | false          |
+| dropdownMinWidth    | 下拉框容器最小宽度，未指定则默认为展示输入框宽度。 适合 transfer 为 false 时使用 | `number`                                                                          | 无             |
+| dropdownWidthFixed  | 固定下拉框容器宽度，当内容超出最小宽度不会伸长，而是出现横向滚动条               | `boolean`                                                                         | false          |
 
 ### vue-TreeDrop Events
 
@@ -228,7 +226,7 @@ yarn add @hu2014/vue-virtual-tree
 | display | 展示输入框的展示文字，如果有默认 slot 则此 slot 无效 |
 | clear   | 替换清空图标，如果有默认 slot 则此 slot 无效         |
 
-默认 slot 与 display slot 的 Slot Props `2.3.0` ：
+默认 slot 与 display slot 的 Slot Props  ：
 
 ```typescript
 /** 展示 slot 的 props */
