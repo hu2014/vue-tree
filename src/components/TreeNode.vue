@@ -22,7 +22,7 @@
 
       <!-- 复选框 -->
       <div
-        v-if="showCheckbox"
+        v-if="showCheckbox && !data.hideCheck"
         :class="squareCls"
       >
         <div
