@@ -137,6 +137,7 @@ yarn add @hu2014/vue-virtual-tree
 | _level         | 节点层级，默认从 0 开始                                                         |
 | _loading       | 节点是否正在加载                                                                |
 | _loaded        | 节点是否已经加载过，异步加载下有效                                              |
+|hidecheck       |是否隐藏当前节点的checkbox                                                         |
 
 ## vue-TreeSearch API
 
