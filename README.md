@@ -1,56 +1,48 @@
 # vue-Tree 
-
-[在线 demo](https://wsfe.github.io/vue-Tree/)
-
 ## 安装
 npm i @hu2014/vue-virtual-tree
 或者
 yarn add @hu2014/vue-virtual-tree
-### 样式引入
-
-直接引入 css
-、
-是多少
-
-## vue-Tree API
-
+##
+支持百万级树形加载，不超过2S;支持拖拽排序；十万级别子节点勾选不卡顿；隐藏指定节点checkbox
+![Alt text](image.png)   ![Alt text](image-1.png)
 ### vue-Tree Props
 
-| 属性                             | 说明                                                                                                          | 类型                                                                                                             | 默认值       |
-|:---------------------------------|:--------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------|:-------------|
-| value                            | 选中的值，可用 v-model ；单选为字符串或数字，多选为 `separator` 分隔的字符串或数组，优先多选                  | `string \| number \| Array<string \| number>`                                                                    | 无           |
-| data                             | 传入的树数据。数据量大时，不建议通过 props 传入数据，建议用 `setData` 方法代替                                | `object[]`                                                                                                       | []           |
-| unloadDataList                   | 供未加载且选中节点查询 title 字段值用的列表，格式与 `data` 一致即可                                           | `object[]`                                                                                                       | []           |
-| showUnloadCheckedNodes           | 过滤已选时是否在列表后面展示未加载的已选节点                                                                  | `boolean`                                                                                                        | true         |
-| emptyText                        | 数据为空时显示的文本                                                                                          | `string`                                                                                                         | '暂无数据'   |
-| titleField                       | 节点标题字段                                                                                                  | `string`                                                                                                         | 'title'      |
-| keyField                         | 节点唯一标识字段                                                                                              | `string`                                                                                                         | 'id'         |
-| separator                        | 多选模式下 value 分隔符                                                                                       | `string`                                                                                                         | ','          |
-| checkable                        | 是否可多选                                                                                                    | `boolean`                                                                                                        | false        |
-| selectable                       | 是否可单选                                                                                                    | `boolean`                                                                                                        | false        |
-| filteredNodeCheckable            | 是否可勾选被过滤节点                                                                                          | `boolean`                                                                                                        | false        |
-| cascade                          | 父子节点是否关联                                                                                              | `boolean`                                                                                                        | true         |
-| enableLeafOnly                   | 是否只启用子节点，当 `多选且父子不关联` 或 `单选` 时有效                                                      | `boolean`                                                                                                        | false        |
-| disableAll                       | 是否禁用所有节点                                                                                              | `boolean`                                                                                                        | false        |
-| defaultExpandAll                 | 是否默认展开所有节点                                                                                          | `boolean`                                                                                                        | false        |
-| defaultExpandedKeys `Deprecated` | 默认展开的节点 key                                                                                            | `Array<string \| number>`                                                                                        | []           |
-| expandedKeys `2.2.0`             | 展开的节点 key ，组件内部将会响应此 Prop 的变化                                                               | `Array<string \| number>`                                                                                        | []           |
-| draggable                        | 是否可拖拽                                                                                                    | `boolean`                                                                                                        | false        |
-| droppable                        | 是否可放置                                                                                                    | `boolean`                                                                                                        | false        |
-| beforeDropMethod                 | 在放置节点之前执行的方法，返回 true 允许放置， false 可阻止放置                                               | `(dragKey: string \| number, dropKey: string \| number, hoverPart: 'before' \| 'body' \| 'after') => boolean`    | `() => true` |
-| ignoreMode                       | 忽略模式，指定 `getCheckedNodes`, `getCheckedKeys` 与 `v-model` 默认要忽略的部分                              | `'none' \| 'parents' \| 'children'`                                                                              | 'none'       |
-| autoLoad                         | 异步加载初始化时是否自动加载根节点                                                                            | `boolean`                                                                                                        | true         |
-| load                             | 异步加载方法                                                                                                  | `(node: null \| TreeNode, resolve: Function, reject: Function) => any`                                           | 无           |
-| render                           | 节点渲染 render 函数                                                                                          | `(h: CreateElement, node: TreeNode) => VNode`                                                                    | 无           |
-| filterMethod                     | 节点过滤方法                                                                                                  | `(keyword: string, node: TreeNode) => boolean`                                                                   | 无           |
-| expandOnFilter                   | 过滤时是否展开所有可见节点                                                                                    | `boolean`                                                                                                        | true         |
-| unselectOnClick                  | 点击已选中节点是否取消选中                                                                                    | `boolean`                                                                                                        | true         |
-| loading                          | 是否显示 loading 图标                                                                                         | `boolean`                                                                                                        | false        |
-| nodeClassName                    | 节点根元素的 class ，传入函数以对每个节点定制 class                                                           | `string \| object \| Array<string \| object> \| (node: TreeNode) => string \| object \| Array<string \| object>` | 无           |
-| nodeMinHeight                    | 根据节点最小高度计算数据总高度                                                                                | `number`                                                                                                         | 30           |
-| nodeIndent                       | 子节点缩进                                                                                                    | `number`                                                                                                         | 20           |
-| renderNodeAmount                 | 渲染节点数量，可见节点数大于此值且高度超过(容器可视高度能容纳节点数 + bufferNodeAmount)则不会渲染所有可见节点 | `number`                                                                                                         | 100          |
-| bufferNodeAmount                 | 当滚动到视野外的节点个数大于此值时刷新渲染节点                                                                | `number`                                                                                                         | 20           |
+| 属性                             | 说明                                                         | 类型                                                         | 默认值       |
+| :------------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- | :----------- |
+| value                            | 选中的值，可用 v-model ；单选为字符串或数字，多选为 `separator` 分隔的字符串或数组，优先多选 | `string \| number \| Array<string \| number>`                | 无           |
+| data                             | 传入的树数据。数据量大时，不建议通过 props 传入数据，建议用 `setData` 方法代替 | `object[]`                                                   | []           |
+| unloadDataList                   | 供未加载且选中节点查询 title 字段值用的列表，格式与 `data` 一致即可 | `object[]`                                                   | []           |
+| showUnloadCheckedNodes           | 过滤已选时是否在列表后面展示未加载的已选节点                 | `boolean`                                                    | true         |
+| emptyText                        | 数据为空时显示的文本                                         | `string`                                                     | '暂无数据'   |
+| titleField                       | 节点标题字段                                                 | `string`                                                     | 'title'      |
+| keyField                         | 节点唯一标识字段                                             | `string`                                                     | 'id'         |
+| separator                        | 多选模式下 value 分隔符                                      | `string`                                                     | ','          |
+| checkable                        | 是否可多选                                                   | `boolean`                                                    | false        |
+| selectable                       | 是否可单选                                                   | `boolean`                                                    | false        |
+| filteredNodeCheckable            | 是否可勾选被过滤节点                                         | `boolean`                                                    | false        |
+| cascade                          | 父子节点是否关联                                             | `boolean`                                                    | true         |
+| enableLeafOnly                   | 是否只启用子节点，当 `多选且父子不关联` 或 `单选` 时有效     | `boolean`                                                    | false        |
+| disableAll                       | 是否禁用所有节点                                             | `boolean`                                                    | false        |
+| defaultExpandAll                 | 是否默认展开所有节点                                         | `boolean`                                                    | false        |
+| defaultExpandedKeys `Deprecated` | 默认展开的节点 key                                           | `Array<string \| number>`                                    | []           |
+| expandedKeys                     | 展开的节点 key ，组件内部将会响应此 Prop 的变化              | `Array<string \| number>`                                    | []           |
+| draggable                        | 是否可拖拽                                                   | `boolean`                                                    | false        |
+| droppable                        | 是否可放置                                                   | `boolean`                                                    | false        |
+| beforeDropMethod                 | 在放置节点之前执行的方法，返回 true 允许放置， false 可阻止放置 | `(dragKey: string \| number, dropKey: string \| number, hoverPart: 'before' \| 'body' \| 'after') => boolean` | `() => true` |
+| ignoreMode                       | 忽略模式，指定 `getCheckedNodes`, `getCheckedKeys` 与 `v-model` 默认要忽略的部分 | `'none' \| 'parents' \| 'children'`                          | 'none'       |
+| autoLoad                         | 异步加载初始化时是否自动加载根节点                           | `boolean`                                                    | true         |
+| load                             | 异步加载方法                                                 | `(node: null \| TreeNode, resolve: Function, reject: Function) => any` | 无           |
+| render                           | 节点渲染 render 函数                                         | `(h: CreateElement, node: TreeNode) => VNode`                | 无           |
+| filterMethod                     | 节点过滤方法                                                 | `(keyword: string, node: TreeNode) => boolean`               | 无           |
+| expandOnFilter                   | 过滤时是否展开所有可见节点                                   | `boolean`                                                    | true         |
+| unselectOnClick                  | 点击已选中节点是否取消选中                                   | `boolean`                                                    | true         |
+| loading                          | 是否显示 loading 图标                                        | `boolean`                                                    | false        |
+| nodeClassName                    | 节点根元素的 class ，传入函数以对每个节点定制 class          | `string \| object \| Array<string \| object> \| (node: TreeNode) => string \| object \| Array<string \| object>` | 无           |
+| nodeMinHeight                    | 根据节点最小高度计算数据总高度                               | `number`                                                     | 30           |
+| nodeIndent                       | 子节点缩进                                                   | `number`                                                     | 20           |
+| renderNodeAmount                 | 渲染节点数量，可见节点数大于此值且高度超过(容器可视高度能容纳节点数 + bufferNodeAmount)则不会渲染所有可见节点 | `number`                                                     | 100          |
+| bufferNodeAmount                 | 当滚动到视野外的节点个数大于此值时刷新渲染节点               | `number`                                                     | 20           |
 
 ### vue-Tree Events
 
