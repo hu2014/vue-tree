@@ -1,6 +1,6 @@
 {
   "name": "@hu2014/vue-virtual-tree",
-  "version": "1.0.4",
+  "version": "1.0.4.1",
   "main": "./dist/ctree.umd.min.js",
   "types": "./types",
   "description": "一款性能及其优秀的树形组件",
