@@ -4,6 +4,9 @@ npm i @hu2014/vue-virtual-tree
 或者
 yarn add @hu2014/vue-virtual-tree
 ##
+github地址：https://github.com/hu2014/vue-tree
+在线文档地址：https://hu2014.github.io/vue-tree/
+##
 支持百万级树形加载，不超过2S;支持拖拽排序；十万级别子节点勾选不卡顿；隐藏指定节点checkbox
 ![Alt text](image.png)   ![Alt text](image-1.png)
 ### vue-Tree Props
