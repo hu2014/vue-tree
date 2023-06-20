@@ -24,10 +24,12 @@
     "name": "hu2014"
   },
   "keywords": [
-    "wsfe",
-    "ctree",
+    "hu2014",
+    "vue-tree",
     "tree",
-    "vue tree component"
+    "virtual-tree",
+    "虚拟树",
+    "滚动加载"
   ],
   "license": "MIT",
   "dependencies": {},
